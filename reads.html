@@ -178,8 +178,7 @@ const books = [
     year: 2010
   }
 ];
-
-// shuffle
+  
 for (let i = books.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
   [books[i], books[j]] = [books[j], books[i]];
@@ -211,6 +210,8 @@ books.forEach((b, i) => {
 
 document.querySelector(".footer-note").style.opacity = "1";
 </script>
-
+<p class="copyright">
+  © 2025 Sarthak Dhole. All rights reserved.
+</p>
 </body>
 </html>
