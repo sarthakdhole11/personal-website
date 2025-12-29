@@ -34,6 +34,7 @@
       width: 100%;
       max-width: 720px;
       padding: 12vh 24px 80px;
+      position: relative;
     }
 
     h1 {
@@ -72,16 +73,71 @@
       opacity: 0.6;
     }
 
+    .intro {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .intro-text {
+      font-size: 34px;
+      line-height: 1.3;
+      white-space: nowrap;
+      transform-origin: center;
+    }
+
+    .char {
+      opacity: 0;
+      display: inline-block;
+      transform: translateY(8px);
+    }
+
+    .char.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    .intro.travel {
+      animation: travelUp 0.9s cubic-bezier(.22,.61,.36,1) forwards;
+    }
+
+    .intro.snap {
+      animation: snapBack 0.45s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+
+    @keyframes travelUp {
+      to {
+        transform: translateY(-36vh);
+      }
+    }
+
+    @keyframes snapBack {
+      0% {
+        transform: translateY(-36vh) scaleY(1);
+      }
+      40% {
+        transform: translateY(calc(-36vh - 6px)) scaleY(0.97);
+      }
+      100% {
+        transform: translateY(-36vh) scaleY(1);
+      }
+    }
+
     .fade-in {
       opacity: 0;
       transform: translateY(12px);
       animation: fadeUp 1.6s ease forwards;
     }
 
-    .delay-1 { animation-delay: 0.4s; }
-    .delay-2 { animation-delay: 0.8s; }
-    .delay-3 { animation-delay: 1.2s; }
-    .delay-4 { animation-delay: 1.6s; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
 
     @keyframes fadeUp {
       to {
@@ -95,12 +151,20 @@
       font-size: 14px;
       color: var(--text-muted);
     }
+
+    .hidden {
+      visibility: hidden;
+    }
   </style>
 </head>
 
 <body>
+  <div class="intro">
+    <div class="intro-text" id="introText"></div>
+  </div>
+
   <main>
-    <h1 class="fade-in">
+    <h1 class="hidden" id="mainHeading">
       hi. i’m sarthak dhole.
     </h1>
 
@@ -134,5 +198,42 @@
       </p>
     </section>
   </main>
+
+  <script>
+    const text = "hi. i’m sarthak dhole.";
+    const container = document.getElementById("introText");
+    const intro = document.querySelector(".intro");
+    const mainHeading = document.getElementById("mainHeading");
+
+    let t = 0;
+
+    [...text].forEach((char, i) => {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.className = "char";
+      container.appendChild(span);
+
+      let delay = 55;
+      if (i === 1) delay = 140;
+      if (char === ".") delay = 80;
+
+      t += delay;
+      setTimeout(() => span.classList.add("show"), t);
+    });
+
+    setTimeout(() => {
+      intro.classList.add("travel");
+    }, t + 400);
+
+    setTimeout(() => {
+      intro.classList.remove("travel");
+      intro.classList.add("snap");
+    }, t + 1300);
+
+    setTimeout(() => {
+      intro.style.display = "none";
+      mainHeading.classList.remove("hidden");
+    }, t + 1750);
+  </script>
 </body>
 </html>
