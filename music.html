@@ -8,7 +8,7 @@
 <style>
 :root {
   --text-main: #111;
-  --text-muted: #666;
+  --text-muted: #777;
   --line: #e5e5e5;
 }
 
@@ -26,7 +26,7 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 main {
@@ -40,6 +40,19 @@ h1 {
   font-weight: normal;
   margin: 0 0 40px;
   color: var(--text-muted);
+  opacity: 0;
+}
+
+.intro-line {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--text-muted);
+  opacity: 0;
+  pointer-events: none;
 }
 
 ol {
@@ -54,21 +67,27 @@ li {
   margin-bottom: 18px;
   font-size: 20px;
   line-height: 1.6;
+  opacity: 0;
 }
 
-li span.num {
+.num {
   font-size: 14px;
   color: var(--text-muted);
   min-width: 28px;
 }
 
-li span.record {
-  display: block;
-}
-
-li em {
+.record em {
   font-style: italic;
 }
+
+a {
+  color: var(--text-main);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+a:hover { opacity: 0.6; }
 
 .footer-note {
   margin-top: 56px;
@@ -76,13 +95,11 @@ li em {
   color: var(--text-muted);
   line-height: 1.6;
   max-width: 560px;
+  opacity: 0;
 }
 
-/* Entrance animation */
 .fade-in {
-  opacity: 0;
-  transform: translateY(16px);
-  animation: fadeUp 1.2s ease forwards;
+  animation: fadeUp 0.9s ease forwards;
 }
 
 @keyframes fadeUp {
@@ -96,23 +113,33 @@ li em {
 
 <body>
 
+<div class="intro-line" id="introLine">
+  here is a peek into the music that makes up my day.
+</div>
+
 <main>
-  <h1 class="fade-in">records i love</h1>
-
+  <h1 id="title">records i love</h1>
   <ol id="record-list"></ol>
-
-  <p class="footer-note fade-in" style="animation-delay: 0.8s;">
+  <p class="footer-note" id="footer">
     the order here is irrelevant. this list is merely intended to give an outlook
     into the kind of music i love. refreshing this page reshuffles the list.
   </p>
 </main>
 
 <script>
+const fromHome = sessionStorage.getItem("fromHome");
+sessionStorage.removeItem("fromHome");
+
+const title = document.getElementById("title");
+const introLine = document.getElementById("introLine");
+const list = document.getElementById("record-list");
+const footer = document.getElementById("footer");
+
 const records = [
   { album: "Reach the Beach", artist: "The Fixx", year: 1983 },
   { album: "Heartbeat City", artist: "The Cars", year: 1984 },
   { album: "The Complete Outhouse Sessions", artist: "Blaze Foley", year: 2014 },
-  { album: "1998", artist: "Silas", year: 1988 },
+  { album: "1998", artist: "Silas", year: 2019 },
   { album: "Summertime ’06", artist: "Vince Staples", year: 2015 },
   { album: "Fashion Nugget", artist: "Cake", year: 1996 },
   { album: "Cinema Verité", artist: "Dramarama", year: 1985 },
@@ -128,32 +155,63 @@ const records = [
   { album: "Unknown Pleasures", artist: "Joy Division", year: 1979 },
   { album: "Who’s Next", artist: "The Who", year: 1971 },
   { album: "All Things Must Pass", artist: "George Harrison", year: 1970 },
-  { album: "The Beatles (White Album)", artist: "The Beatles", year: 1968 }
+  { album: "The Beatles (White Album)", artist: "The Beatles", year: 1968 },
+  { album: "Contradiction", artist: "Ohio Players", year: 1976 }
 ];
 
-// Shuffle (Fisher–Yates)
+// shuffle
 for (let i = records.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
   [records[i], records[j]] = [records[j], records[i]];
 }
 
-const list = document.getElementById("record-list");
-
 records.forEach((r, i) => {
   const li = document.createElement("li");
+  li.style.transform = "translateY(12px)";
+  li.style.animationDelay = `${0.08 * i}s`;
   li.className = "fade-in";
-  li.style.animationDelay = `${0.15 * i}s`;
+  const search =
+    "https://www.google.com/search?q=" +
+    encodeURIComponent(`${r.album} ${r.artist} album`);
 
   li.innerHTML = `
     <span class="num">${i + 1}.</span>
     <span class="record">
-      <em>${r.album}</em><br>
-      ${r.artist}, ${r.year}
+      <a href="${search}" target="_blank">
+        <em>${r.album}</em><br>
+        ${r.artist}, ${r.year}
+      </a>
     </span>
   `;
-
   list.appendChild(li);
 });
+
+function showFinal() {
+  title.classList.add("fade-in");
+  title.style.opacity = "1";
+  footer.classList.add("fade-in");
+}
+
+if (fromHome) {
+  introLine.style.opacity = "1";
+
+  setTimeout(() => {
+    introLine.style.transition = "opacity 0.8s ease";
+    introLine.style.opacity = "0";
+  }, 1200);
+
+  setTimeout(() => {
+    title.style.transform = "translateY(-20px)";
+    title.style.opacity = "1";
+    title.style.transition = "transform 0.9s ease, opacity 0.9s ease";
+    title.style.transform = "translateY(0)";
+    showFinal();
+  }, 2200);
+} else {
+  title.style.opacity = "1";
+  list.querySelectorAll("li").forEach(li => (li.style.opacity = "1"));
+  footer.style.opacity = "1";
+}
 </script>
 
 </body>
