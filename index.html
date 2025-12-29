@@ -36,8 +36,6 @@
       padding: 12vh 24px 80px;
     }
 
-    /* --- Typography --- */
-
     h1 {
       font-size: 34px;
       font-weight: normal;
@@ -74,8 +72,6 @@
       opacity: 0.6;
     }
 
-    /* --- Animation --- */
-
     .fade-in {
       opacity: 0;
       transform: translateY(12px);
@@ -85,7 +81,6 @@
     .delay-1 { animation-delay: 0.4s; }
     .delay-2 { animation-delay: 0.8s; }
     .delay-3 { animation-delay: 1.2s; }
-    .delay-4 { animation-delay: 1.6s; }
 
     @keyframes fadeUp {
       to {
@@ -94,24 +89,26 @@
       }
     }
 
-    /* --- Footer spacing --- */
-
     footer {
       margin-top: 96px;
       color: var(--text-muted);
       font-size: 16px;
+    }
+
+    .copyright {
+      margin-top: 48px;
+      font-size: 14px;
+      color: var(--text-muted);
     }
   </style>
 </head>
 
 <body>
   <main>
-    <!-- Greeting -->
     <h1 class="fade-in">
       hi. i’m sarthak dhole.
     </h1>
 
-    <!-- Writings -->
     <section class="fade-in delay-1">
       <h2>writings</h2>
       <p>
@@ -123,7 +120,6 @@
       </p>
     </section>
 
-    <!-- Resume -->
     <section class="fade-in delay-2">
       <h2>resume</h2>
       <p>
@@ -133,11 +129,13 @@
       </p>
     </section>
 
-    <!-- Contact -->
     <footer class="fade-in delay-3">
       <h2>contact</h2>
       <p>
         <a href="mailto:dholesarthak11@gmail.com">dholesarthak11@gmail.com</a>
+      </p>
+      <p class="copyright">
+        © 2024 Sarthak Dhole. All rights reserved.
       </p>
     </footer>
   </main>
