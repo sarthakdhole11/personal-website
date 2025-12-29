@@ -67,7 +67,6 @@ a {
 
 a:hover { opacity: 0.6; }
 
-/* Intro layer */
 #intro-layer {
   position: fixed;
   inset: 0;
@@ -86,7 +85,6 @@ a:hover { opacity: 0.6; }
   will-change: transform;
 }
 
-/* Content */
 #content {
   transform: translateY(120vh);
   will-change: transform;
@@ -181,7 +179,6 @@ window.addEventListener("load", () => {
   const copyright = document.getElementById("copyright");
 
   typeText(introText, "hi. i’m sarthak dhole.", () => {
-    /* slight anticipatory lean */
     introText.style.transition = "transform 0.18s ease-out";
     introText.style.transform = "translate(-2px, 0)";
 
@@ -193,13 +190,11 @@ window.addEventListener("load", () => {
         const dx = end.left - start.left;
         const dy = end.top - start.top;
 
-        /* Phase 1: horizontal move only */
         introText.style.transition =
           "transform 0.55s cubic-bezier(0.18,0.7,0.3,1)";
         introText.style.transform =
           `translate(${dx}px, 0)`;
 
-        /* Phase 2: content rises and pushes greeting upward */
         setTimeout(() => {
           introText.style.transition =
             "transform 0.9s cubic-bezier(0.22,0.61,0.36,1)";
