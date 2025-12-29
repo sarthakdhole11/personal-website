@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Books — Sarthak Dhole</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+:root {
+  --text-main: #111;
+  --text-muted: #777;
+  --line: #e5e5e5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--text-main);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+main {
+  width: 100%;
+  max-width: 720px;
+  padding: 12vh 24px 80px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: normal;
+  margin: 0 0 32px;
+  color: var(--text-muted);
+}
+
+.notice {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  max-width: 620px;
+}
+
+.notice em {
+  font-style: italic;
+}
+
+.notice a {
+  color: var(--text-main);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  font-size: 20px;
+  line-height: 1.6;
+  opacity: 0;
+}
+
+.num {
+  font-size: 14px;
+  color: var(--text-muted);
+  min-width: 28px;
+}
+
+.record em {
+  font-style: italic;
+}
+
+a {
+  color: var(--text-main);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+a:hover { opacity: 0.6; }
+
+.footer-note {
+  margin-top: 56px;
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 620px;
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main>
+  <h1 class="fade-in">books i love</h1>
+
+  <p class="notice fade-in" style="animation-delay: 0.2s;">
+    i’m planning on starting a reading group for
+    <em>Gödel, Escher, Bach</em>. if you’re interested, fill out the form
+    <a href="#" target="_blank">here</a>.
+    the current plan is to begin around early february.
+  </p>
+
+  <ol id="book-list"></ol>
+
+  <p class="footer-note fade-in" style="animation-delay: 0.8s;">
+    the order here is irrelevant. this list is merely intended to give an outlook
+    into the kind of books i enjoy. refreshing this page reshuffles the list.
+    <br><br>
+    since i also read a large number of textbooks across different subject areas,
+    i plan to put up a list of the best textbooks for each subject soon.
+  </p>
+</main>
+
+<script>
+const books = [
+  { title: "Notes from Underground", author: "Fyodor Dostoevsky", year: 1864 },
+  {
+    title: "Les Liaisons Dangereuses",
+    author: "Pierre Choderlos de Laclos",
+    year: 1782,
+    extra: "english translation by helen constantine"
+  },
+  { title: "What Does It All Mean?", author: "Thomas Nagel", year: 1987 },
+  { title: "Sophie’s World", author: "Jostein Gaarder", year: 1991 },
+  { title: "What We Owe the Future", author: "William MacAskill", year: 2022 },
+  { title: "The Sublime Object of Ideology", author: "Slavoj Žižek", year: 1989 },
+  { title: "House and Philosophy", author: "Henry Jacoby (ed.)", year: 2009 },
+  { title: "Siddhartha", author: "Hermann Hesse", year: 1922 },
+  { title: "Candide", author: "Voltaire", year: 1759 },
+  { title: "Reasons and Persons", author: "Derek Parfit", year: 1984 },
+  { title: "From Bacteria to Bach and Back", author: "Daniel C. Dennett", year: 2017 },
+  { title: "Freakonomics", author: "Steven D. Levitt & Stephen J. Dubner", year: 2005 },
+  { title: "The Story of Philosophy", author: "Will Durant", year: 1926 },
+  { title: "The Scout Mindset", author: "Julia Galef", year: 2021 },
+  { title: "Capitalist Realism", author: "Mark Fisher", year: 2009 },
+  { title: "Miracles", author: "C. S. Lewis", year: 1947 },
+  { title: "Perfume", author: "Patrick Süskind", year: 1985 },
+  { title: "Behave", author: "Robert Sapolsky", year: 2017 },
+  {
+    title: "Harry Potter and the Methods of Rationality",
+    author: "Eliezer Yudkowsky",
+    year: 2010
+  }
+];
+
+// shuffle
+for (let i = books.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [books[i], books[j]] = [books[j], books[i]];
+}
+
+const list = document.getElementById("book-list");
+
+books.forEach((b, i) => {
+  const li = document.createElement("li");
+  li.className = "fade-in";
+  li.style.animationDelay = `${0.08 * i}s`;
+
+  const search =
+    "https://www.google.com/search?q=" +
+    encodeURIComponent(`${b.title} ${b.author} book`);
+
+  li.innerHTML = `
+    <span class="num">${i + 1}.</span>
+    <span class="record">
+      <a href="${search}" target="_blank">
+        <em>${b.title}</em><br>
+        ${b.author}, ${b.year}${b.extra ? "<br><span style='font-size:16px;color:#777;'>" + b.extra + "</span>" : ""}
+      </a>
+    </span>
+  `;
+
+  list.appendChild(li);
+});
+
+document.querySelector(".footer-note").style.opacity = "1";
+</script>
+
+</body>
+</html>
