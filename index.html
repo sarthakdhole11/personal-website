@@ -188,26 +188,11 @@ window.addEventListener("load", () => {
       const dx = end.left - start.left;
       const dy = end.top - start.top;
 
-      /* Stronger, faster impulse */
+      /* Clean, fast, decisive settle */
       introText.style.transition =
         "transform 0.65s cubic-bezier(0.18,0.7,0.3,1)";
       introText.style.transform =
-        `translate(${dx - 10}px, ${dy - 10}px)`;
-
-      /* Sharp impact + snap-back */
-      setTimeout(() => {
-        introText.style.transition =
-          "transform 0.22s cubic-bezier(0.34,1.56,0.64,1)";
-        introText.style.transform =
-          `translate(${dx}px, ${dy}px) scaleY(0.96)`;
-
-        setTimeout(() => {
-          introText.style.transition =
-            "transform 0.18s ease-out";
-          introText.style.transform =
-            `translate(${dx}px, ${dy}px) scaleY(1)`;
-        }, 120);
-      }, 650);
+        `translate(${dx}px, ${dy}px)`;
 
       /* Reveal content */
       setTimeout(() => {
@@ -226,7 +211,7 @@ window.addEventListener("load", () => {
             copyright.style.opacity = "1";
           }, 300);
         }, 900);
-      }, 1000);
+      }, 700);
     });
   });
 });
