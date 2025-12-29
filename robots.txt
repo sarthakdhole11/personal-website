@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /curriculum_vitae.pdf
+
+Sitemap: https://sarthakdhole.com/sitemap.xml
