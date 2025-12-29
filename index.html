@@ -134,6 +134,19 @@ a:hover { opacity: 0.6; }
       </p>
     </section>
 
+    <!-- NEW SECTION -->
+    <section>
+      <h2>things i love</h2>
+      <p>
+        <strong>music</strong><br>
+        post-punk, new wave, ambient, film scores
+      </p>
+      <p>
+        <strong>books</strong><br>
+        philosophy, political theory, essays, literary non-fiction
+      </p>
+    </section>
+
     <section>
       <h2>contact</h2>
       <p>
@@ -179,7 +192,6 @@ window.addEventListener("load", () => {
   const copyright = document.getElementById("copyright");
 
   typeText(introText, "hi. i’m sarthak dhole.", () => {
-    /* anticipatory micro-drift */
     introText.style.transition = "transform 0.18s ease-out";
     introText.style.transform = "translate(-2px, -2px)";
 
@@ -191,13 +203,11 @@ window.addEventListener("load", () => {
         const dx = end.left - start.left;
         const dy = end.top - start.top;
 
-        /* main movement */
         introText.style.transition =
           "transform 0.62s cubic-bezier(0.18,0.7,0.3,1)";
         introText.style.transform =
           `translate(${dx}px, ${dy}px)`;
 
-        /* Reveal content */
         setTimeout(() => {
           introLayer.remove();
           finalHeading.classList.remove("hidden");
