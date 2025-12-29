@@ -26,6 +26,7 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 main {
@@ -35,6 +36,7 @@ main {
   position: relative;
 }
 
+/* Typography */
 h1 {
   font-size: 34px;
   font-weight: normal;
@@ -62,13 +64,11 @@ a {
   text-decoration: none;
   border-bottom: 1px solid var(--line);
   padding-bottom: 2px;
-  transition: opacity 0.2s ease;
 }
 
 a:hover { opacity: 0.6; }
 
-/* ---------------- Intro Object ---------------- */
-
+/* Intro */
 #intro-layer {
   position: fixed;
   inset: 0;
@@ -76,7 +76,7 @@ a:hover { opacity: 0.6; }
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  z-index: 20;
+  z-index: 10;
 }
 
 #intro-text {
@@ -87,42 +87,20 @@ a:hover { opacity: 0.6; }
   will-change: transform;
 }
 
-.char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(6px);
+/* Content */
+#content {
+  transform: translateY(120vh);
+  will-change: transform;
 }
-
-.char.visible {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.28s ease,
-    transform 0.28s cubic-bezier(.22,.61,.36,1);
-}
-
-/* ---------------- Content reveal ---------------- */
 
 .hidden { visibility: hidden; }
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fadeUp 1.4s ease forwards;
-}
-
-.delay-1 { animation-delay: 0.25s; }
-.delay-2 { animation-delay: 0.45s; }
-.delay-3 { animation-delay: 0.65s; }
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
 
 .copyright {
   margin-top: 64px;
   font-size: 14px;
   color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 </style>
 </head>
@@ -138,87 +116,159 @@ a:hover { opacity: 0.6; }
     hi. i’m sarthak dhole.
   </h1>
 
-  <section class="fade-in delay-1">
-    <h2>writings</h2>
-    <p>
-      <a href="athenians-demagogue.html">On Demagoguery</a><br>
-      <a href="freedom.html">On Freedom</a>
-    </p>
-    <p style="color: var(--text-muted);">
-      more writings will be available soon.
-    </p>
-  </section>
+  <div id="content">
+    <section>
+      <h2>writings</h2>
+      <p>
+        <a href="athenians-demagogue.html">On Demagoguery</a><br>
+        <a href="freedom.html">On Freedom</a>
+      </p>
+      <p style="color: var(--text-muted);">
+        more writings will be available soon.
+      </p>
+    </section>
 
-  <section class="fade-in delay-2">
-    <h2>resume</h2>
-    <p>
-      <a href="https://drive.google.com/file/d/1P-7VkXZzgDl2tpYDm-6nA0DyLK28pwF7/view?usp=sharing" target="_blank">
-        request access
-      </a>
-    </p>
-  </section>
+    <section>
+      <h2>resume</h2>
+      <p>
+        <a href="https://drive.google.com/file/d/1P-7VkXZzgDl2tpYDm-6nA0DyLK28pwF7/view?usp=sharing" target="_blank">
+          request access
+        </a>
+      </p>
+    </section>
 
-  <section class="fade-in delay-3">
-    <h2>contact</h2>
-    <p>
-      <a href="mailto:dholesarthak11@gmail.com">dholesarthak11@gmail.com</a>
-    </p>
-    <p class="copyright">
-      © 2024 Sarthak Dhole. All rights reserved.
-    </p>
-  </section>
+    <section>
+      <h2>contact</h2>
+      <p>
+        <a href="mailto:dholesarthak11@gmail.com">dholesarthak11@gmail.com</a>
+      </p>
+      <p class="copyright" id="copyright">
+        © 2024 Sarthak Dhole. All rights reserved.
+      </p>
+    </section>
+  </div>
 </main>
 
 <script>
-(() => {
-  const text = "hi. i’m sarthak dhole.";
-  const introText = document.getElementById("intro-text");
-  const introLayer = document.getElementById("intro-layer");
-  const finalHeading = document.getElementById("final-heading");
+/* ---------------- Utilities ---------------- */
 
-  let timeline = 0;
-
+function typeText(el, text, done) {
+  let t = 0;
   [...text].forEach((ch, i) => {
     const span = document.createElement("span");
-    span.className = "char";
     span.innerHTML = ch === " " ? "&nbsp;" : ch;
-    introText.appendChild(span);
+    span.style.opacity = "0";
+    span.style.display = "inline-block";
+    span.style.transform = "translateY(6px)";
+    el.appendChild(span);
 
     let delay = 55;
     if (i === 1) delay = 140;
     if (ch === ".") delay = 80;
 
-    timeline += delay;
-    setTimeout(() => span.classList.add("visible"), timeline);
-  });
-
-  function animateToFinalPosition() {
-    const start = introText.getBoundingClientRect();
-    const end = finalHeading.getBoundingClientRect();
-
-    const dx = end.left - start.left;
-    const dy = end.top - start.top;
-
-    introText.style.transition =
-      "transform 1.15s cubic-bezier(.22,.61,.36,1)";
-    introText.style.transform =
-      `translate(${dx}px, ${dy - 8}px) scaleY(0.985)`;
-
+    t += delay;
     setTimeout(() => {
-      introText.style.transition =
-        "transform 0.55s cubic-bezier(.34,1.56,.64,1)";
-      introText.style.transform =
-        `translate(${dx}px, ${dy}px) scaleY(1)`;
-    }, 900);
+      span.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+      span.style.opacity = "1";
+      span.style.transform = "translateY(0)";
+    }, t);
+  });
+  setTimeout(done, t + 200);
+}
+
+/* ---------------- Physics Engine ---------------- */
+
+function runPhysics({
+  el,
+  pos,
+  vel,
+  bounds,
+  onStop
+}) {
+  const friction = 0.92;
+  const gravity = 1.2;
+
+  function frame() {
+    vel.y += gravity;
+
+    pos.x += vel.x;
+    pos.y += vel.y;
+
+    let hit = false;
+
+    if (pos.y <= bounds.top) {
+      pos.y = bounds.top;
+      vel.y *= -0.35;
+      hit = true;
+    }
+
+    if (pos.x <= bounds.left) {
+      pos.x = bounds.left;
+      vel.x *= -0.35;
+      hit = true;
+    }
+
+    vel.x *= friction;
+    vel.y *= friction;
+
+    const squash = hit
+      ? Math.min(Math.abs(vel.y) * 0.004, 0.04)
+      : 0;
+
+    el.style.transform =
+      `translate(${pos.x}px, ${pos.y}px) scaleY(${1 - squash})`;
+
+    if (Math.abs(vel.x) + Math.abs(vel.y) < 0.5 && pos.y === bounds.top) {
+      el.style.transform =
+        `translate(${bounds.left}px, ${bounds.top}px) scaleY(1)`;
+      onStop && onStop();
+      return;
+    }
+    requestAnimationFrame(frame);
   }
+  frame();
+}
 
-  setTimeout(animateToFinalPosition, timeline + 420);
+/* ---------------- Sequence ---------------- */
 
-  setTimeout(() => {
-    introLayer.remove();
-    finalHeading.classList.remove("hidden");
-  }, timeline + 1900);
-})();
+window.addEventListener("load", () => {
+  const introText = document.getElementById("intro-text");
+  const introLayer = document.getElementById("intro-layer");
+  const finalHeading = document.getElementById("final-heading");
+  const content = document.getElementById("content");
+  const copyright = document.getElementById("copyright");
+
+  typeText(introText, "hi. i’m sarthak dhole.", () => {
+    requestAnimationFrame(() => {
+      const start = introText.getBoundingClientRect();
+      const end = finalHeading.getBoundingClientRect();
+
+      runPhysics({
+        el: introText,
+        pos: { x: 0, y: 0 },
+        vel: { x: -18, y: -22 },
+        bounds: {
+          left: end.left - start.left,
+          top: end.top - start.top
+        },
+        onStop: () => {
+          introLayer.remove();
+          finalHeading.classList.remove("hidden");
+
+          runPhysics({
+            el: content,
+            pos: { x: 0, y: window.innerHeight },
+            vel: { x: 0, y: -28 },
+            bounds: { left: 0, top: 0 },
+            onStop: () => {
+              copyright.style.opacity = "1";
+            }
+          });
+        }
+      });
+    });
+  });
+});
 </script>
 
 </body>
