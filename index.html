@@ -181,37 +181,43 @@ window.addEventListener("load", () => {
   const copyright = document.getElementById("copyright");
 
   typeText(introText, "hi. i’m sarthak dhole.", () => {
+    /* anticipatory micro-drift */
+    introText.style.transition = "transform 0.18s ease-out";
+    introText.style.transform = "translate(-2px, -2px)";
+
     requestAnimationFrame(() => {
-      const start = introText.getBoundingClientRect();
-      const end = finalHeading.getBoundingClientRect();
+      requestAnimationFrame(() => {
+        const start = introText.getBoundingClientRect();
+        const end = finalHeading.getBoundingClientRect();
 
-      const dx = end.left - start.left;
-      const dy = end.top - start.top;
+        const dx = end.left - start.left;
+        const dy = end.top - start.top;
 
-      /* Clean, fast, decisive settle */
-      introText.style.transition =
-        "transform 0.65s cubic-bezier(0.18,0.7,0.3,1)";
-      introText.style.transform =
-        `translate(${dx}px, ${dy}px)`;
+        /* main movement */
+        introText.style.transition =
+          "transform 0.62s cubic-bezier(0.18,0.7,0.3,1)";
+        introText.style.transform =
+          `translate(${dx}px, ${dy}px)`;
 
-      /* Reveal content */
-      setTimeout(() => {
-        introLayer.remove();
-        finalHeading.classList.remove("hidden");
-
-        content.style.transition =
-          "transform 0.9s cubic-bezier(0.22,0.61,0.36,1)";
-        content.style.transform = "translateY(-8px)";
-
+        /* Reveal content */
         setTimeout(() => {
+          introLayer.remove();
+          finalHeading.classList.remove("hidden");
+
           content.style.transition =
-            "transform 0.35s cubic-bezier(0.34,1.56,0.64,1)";
-          content.style.transform = "translateY(0)";
+            "transform 0.9s cubic-bezier(0.22,0.61,0.36,1)";
+          content.style.transform = "translateY(-8px)";
+
           setTimeout(() => {
-            copyright.style.opacity = "1";
-          }, 300);
-        }, 900);
-      }, 520);
+            content.style.transition =
+              "transform 0.35s cubic-bezier(0.34,1.56,0.64,1)";
+            content.style.transform = "translateY(0)";
+            setTimeout(() => {
+              copyright.style.opacity = "1";
+            }, 300);
+          }, 900);
+        }, 520);
+      });
     });
   });
 });
