@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Music — Sarthak Dhole</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+:root {
+  --text-main: #111;
+  --text-muted: #666;
+  --line: #e5e5e5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--text-main);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+main {
+  width: 100%;
+  max-width: 720px;
+  padding: 12vh 24px 80px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: normal;
+  margin: 0 0 40px;
+  color: var(--text-muted);
+}
+
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+li span.num {
+  font-size: 14px;
+  color: var(--text-muted);
+  min-width: 28px;
+}
+
+li span.record {
+  display: block;
+}
+
+li em {
+  font-style: italic;
+}
+
+.footer-note {
+  margin-top: 56px;
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+/* Entrance animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 1.2s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main>
+  <h1 class="fade-in">records i love</h1>
+
+  <ol id="record-list"></ol>
+
+  <p class="footer-note fade-in" style="animation-delay: 0.8s;">
+    the order here is irrelevant. this list is merely intended to give an outlook
+    into the kind of music i love. refreshing this page reshuffles the list.
+  </p>
+</main>
+
+<script>
+const records = [
+  { album: "Reach the Beach", artist: "The Fixx", year: 1983 },
+  { album: "Heartbeat City", artist: "The Cars", year: 1984 },
+  { album: "The Complete Outhouse Sessions", artist: "Blaze Foley", year: 2014 },
+  { album: "1998", artist: "Silas", year: 1988 },
+  { album: "Summertime ’06", artist: "Vince Staples", year: 2015 },
+  { album: "Fashion Nugget", artist: "Cake", year: 1996 },
+  { album: "Cinema Verité", artist: "Dramarama", year: 1985 },
+  { album: "Bolero", artist: "Haustor", year: 1985 },
+  { album: "First and Last and Always", artist: "The Sisters of Mercy", year: 1985 },
+  { album: "In a Chamber", artist: "Wire Train", year: 1983 },
+  { album: "Naked Eyes", artist: "Naked Eyes", year: 1983 },
+  { album: "90125", artist: "Yes", year: 1983 },
+  { album: "Don’t Say No", artist: "Billy Squier", year: 1981 },
+  { album: "Emotional Rescue", artist: "The Rolling Stones", year: 1980 },
+  { album: "Loverboy", artist: "Loverboy", year: 1980 },
+  { album: "Sandinista!", artist: "The Clash", year: 1980 },
+  { album: "Unknown Pleasures", artist: "Joy Division", year: 1979 },
+  { album: "Who’s Next", artist: "The Who", year: 1971 },
+  { album: "All Things Must Pass", artist: "George Harrison", year: 1970 },
+  { album: "The Beatles (White Album)", artist: "The Beatles", year: 1968 }
+];
+
+// Shuffle (Fisher–Yates)
+for (let i = records.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [records[i], records[j]] = [records[j], records[i]];
+}
+
+const list = document.getElementById("record-list");
+
+records.forEach((r, i) => {
+  const li = document.createElement("li");
+  li.className = "fade-in";
+  li.style.animationDelay = `${0.15 * i}s`;
+
+  li.innerHTML = `
+    <span class="num">${i + 1}.</span>
+    <span class="record">
+      <em>${r.album}</em><br>
+      ${r.artist}, ${r.year}
+    </span>
+  `;
+
+  list.appendChild(li);
+});
+</script>
+
+</body>
+</html>
