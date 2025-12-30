@@ -20,24 +20,19 @@ html, body {
   background: #ffffff;
   color: var(--text-main);
   font-family: Georgia, "Times New Roman", Times, serif;
+  overflow: hidden; /* permanently disable scrolling */
 }
 
 body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  overflow: hidden;
-}
-
-body.locked {
-  overflow: hidden;
-  touch-action: none;
 }
 
 main {
   width: 100%;
   max-width: 720px;
-  padding: 12vh 24px 80px;
+  padding: 12vh 24px 64px;
   position: relative;
 }
 
@@ -49,6 +44,8 @@ h1 {
 }
 
 section { margin-top: 56px; }
+
+section.compact { margin-top: 28px; }
 
 h2 {
   font-size: 18px;
@@ -98,7 +95,7 @@ a:hover { opacity: 0.6; }
 .hidden { visibility: hidden; }
 
 .copyright {
-  margin-top: 64px;
+  margin-top: 48px;
   font-size: 14px;
   color: var(--text-muted);
   opacity: 0;
@@ -106,19 +103,18 @@ a:hover { opacity: 0.6; }
 }
 
 @media (max-height: 700px) {
-  main { padding-top: 7.75vh; }
+  main { padding-top: 8vh; }
   section { margin-top: 40px; }
-  h1 { margin-bottom: 24px; }
 }
 
 @media (max-height: 620px) {
-  main { padding-top: 5.5vh; }
+  main { padding-top: 6vh; }
   section { margin-top: 32px; }
 }
 </style>
 </head>
 
-<body class="locked">
+<body>
 
 <div id="intro-layer">
   <div id="intro-text"></div>
@@ -157,24 +153,24 @@ a:hover { opacity: 0.6; }
         <a href="https://www.sarthakdhole.com/books">books</a>
       </p>
     </section>
-    
-    <section>
+
+    <section class="compact">
       <p>
         <a href="https://airtable.com/appNyZbpKaWuoxkMn/pagUsv66A7xqs6eDr/form" target="_blank">
           send me a recipe
         </a>
       </p>
     </section>
-    
-    <section>
+
+    <section class="compact">
       <p>
         <a href="https://drive.google.com/file/d/1sJbDkhbZ63C-YXDIUWMjm46y01VvN_ir/view?usp=sharing" target="_blank">
-          request access to my resume
+          request my resume
         </a>
       </p>
     </section>
 
-    <section>
+    <section class="compact">
       <p>
         <a href="mailto:dholesarthak11@gmail.com">email me</a>
       </p>
@@ -227,13 +223,10 @@ window.addEventListener("load", () => {
         const start = introText.getBoundingClientRect();
         const end = finalHeading.getBoundingClientRect();
 
-        const dx = end.left - start.left;
-        const dy = end.top - start.top;
-
         introText.style.transition =
           "transform 0.62s cubic-bezier(0.18,0.7,0.3,1)";
         introText.style.transform =
-          `translate(${dx}px, ${dy}px)`;
+          `translate(${end.left - start.left}px, ${end.top - start.top}px)`;
 
         setTimeout(() => {
           introLayer.remove();
@@ -241,21 +234,11 @@ window.addEventListener("load", () => {
 
           content.style.transition =
             "transform 0.9s cubic-bezier(0.22,0.61,0.36,1)";
-          content.style.transform = "translateY(-8px)";
+          content.style.transform = "translateY(0)";
 
           setTimeout(() => {
-            content.style.transition =
-              "transform 0.5s cubic-bezier(0.25,1.2,0.4,1)";
-            content.style.transform = "translateY(0)";
-
-            document.body.classList.remove("locked");
-            document.body.style.overflow = "auto";
-            document.body.style.touchAction = "auto";
-
-            setTimeout(() => {
-              copyright.style.opacity = "1";
-            }, 300);
-          }, 900);
+            copyright.style.opacity = "1";
+          }, 300);
         }, 520);
       });
     });
