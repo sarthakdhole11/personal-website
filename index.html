@@ -29,6 +29,10 @@ body {
   overflow: hidden;
 }
 
+body.locked {
+  overflow: hidden;
+}
+
 main {
   width: 100%;
   max-width: 720px;
@@ -99,10 +103,34 @@ a:hover { opacity: 0.6; }
   opacity: 0;
   transition: opacity 0.6s ease;
 }
+
+@media (max-height: 700px) {
+  main {
+    padding-top: 7.75vh;
+  }
+
+  section {
+    margin-top: 40px;
+  }
+
+  h1 {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-height: 620px) {
+  main {
+    padding-top: 5.5vh;
+  }
+
+  section {
+    margin-top: 32px;
+  }
+}
 </style>
 </head>
 
-<body>
+<body class="locked">
 
 <div id="intro-layer">
   <div id="intro-text"></div>
@@ -117,8 +145,8 @@ a:hover { opacity: 0.6; }
     <section>
       <h2>writings</h2>
       <p>
-        <a href="athenians-demagogue.html">On Demagoguery</a><br>
-        <a href="freedom.html">On Freedom</a>
+        <a href="athenians-demagogue.html">on demagoguery</a><br>
+        <a href="freedom.html">on freedom</a>
       </p>
       <p style="color: var(--text-muted);">
         more writings will be available soon.
@@ -131,6 +159,14 @@ a:hover { opacity: 0.6; }
         <a href="https://drive.google.com/file/d/1sJbDkhbZ63C-YXDIUWMjm46y01VvN_ir/view?usp=sharing" target="_blank">
           request access
         </a>
+      </p>
+    </section>
+
+    <section>
+      <h2>things i love</h2>
+      <p>
+        <a href="https://www.sarthakdhole.com/records">records</a><br>
+        <a href="https://www.sarthakdhole.com/books">books</a>
       </p>
     </section>
 
@@ -180,7 +216,7 @@ window.addEventListener("load", () => {
 
   typeText(introText, "hi. i’m sarthak dhole.", () => {
     introText.style.transition = "transform 0.18s ease-out";
-    introText.style.transform = "translate(-2px, 0)";
+    introText.style.transform = "translate(-2px, -2px)";
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -191,15 +227,13 @@ window.addEventListener("load", () => {
         const dy = end.top - start.top;
 
         introText.style.transition =
-          "transform 0.55s cubic-bezier(0.18,0.7,0.3,1)";
+          "transform 0.62s cubic-bezier(0.18,0.7,0.3,1)";
         introText.style.transform =
-          `translate(${dx}px, 0)`;
+          `translate(${dx}px, ${dy}px)`;
 
         setTimeout(() => {
-          introText.style.transition =
-            "transform 0.9s cubic-bezier(0.22,0.61,0.36,1)";
-          introText.style.transform =
-            `translate(${dx}px, ${dy}px)`;
+          introLayer.remove();
+          finalHeading.classList.remove("hidden");
 
           content.style.transition =
             "transform 0.9s cubic-bezier(0.22,0.61,0.36,1)";
@@ -209,15 +243,12 @@ window.addEventListener("load", () => {
             content.style.transition =
               "transform 0.5s cubic-bezier(0.25,1.2,0.4,1)";
             content.style.transform = "translateY(0)";
-
-            introLayer.remove();
-            finalHeading.classList.remove("hidden");
-
+            document.body.classList.remove("locked"); // ← unlock scroll safely
             setTimeout(() => {
               copyright.style.opacity = "1";
             }, 300);
           }, 900);
-        }, 560);
+        }, 520);
       });
     });
   });
