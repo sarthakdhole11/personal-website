@@ -29,6 +29,10 @@ body {
   overflow: hidden;
 }
 
+body.locked {
+  overflow: hidden;
+}
+
 main {
   width: 100%;
   max-width: 720px;
@@ -99,10 +103,35 @@ a:hover { opacity: 0.6; }
   opacity: 0;
   transition: opacity 0.6s ease;
 }
+
+/* ---------- MOBILE HEIGHT FIX (KEY PART) ---------- */
+@media (max-height: 700px) {
+  main {
+    padding-top: 8vh;
+  }
+
+  section {
+    margin-top: 40px;
+  }
+
+  h1 {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-height: 620px) {
+  main {
+    padding-top: 6vh;
+  }
+
+  section {
+    margin-top: 32px;
+  }
+}
 </style>
 </head>
 
-<body>
+<body class="locked">
 
 <div id="intro-layer">
   <div id="intro-text"></div>
@@ -215,6 +244,7 @@ window.addEventListener("load", () => {
             content.style.transition =
               "transform 0.5s cubic-bezier(0.25,1.2,0.4,1)";
             content.style.transform = "translateY(0)";
+            document.body.classList.remove("locked"); // ← unlock scroll safely
             setTimeout(() => {
               copyright.style.opacity = "1";
             }, 300);
