@@ -8,11 +8,11 @@
     <style>
         @font-face {
             font-family: 'Bodoni 72 Oldstyle';
-            src: url('fonts/Bodoni72Oldstyle.ttf'); /* Replace with your actual font path */
+            src: url('fonts/Bodoni72Oldstyle.ttf'); 
         }
         @font-face {
             font-family: 'Garamond';
-            src: url('fonts/Garamond.ttf'); /* Replace with your actual font path */
+            src: url('fonts/Garamond.ttf'); 
         }
         body {
             font-family: 'Garamond', serif;
@@ -61,12 +61,10 @@
         }
     </style>
     <script>
-        // Disable right-click context menu
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // Disable copy, cut, and paste
         document.addEventListener('copy', function(e) {
             e.preventDefault();
         });
@@ -77,7 +75,6 @@
             e.preventDefault();
         });
 
-        // Disable keyboard shortcuts (e.g., Ctrl+C, Ctrl+V)
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'u')) {
                 e.preventDefault();
@@ -90,10 +87,9 @@
     <p>Athenians and the Demagogue [Draft]</p>
     <p>Dated Drafts like these intend merely to show how my thought process has developed overtime and how I have come to inculcate certain new ideas, made apparent to me via discourse, into my writings.</p>
     <p>An Essay by Sarthak Dhole, May 2024</p>
-   <!-- <em>To R., who shall never lose her sense of beauty.</em> -->
 </div>
 <blockquote>
-        "Another problem with people who fail to examine themselves is that they often prove all too easily
+        “Another problem with people who fail to examine themselves is that they often prove all too easily
 influenced. When a talented demagogue addressed the Athenians with moving rhetoric but bad
 arguments, they were all too ready to be swayed, without ever examining the argument”
         <cite>Martha C. Nussbaum, <em>Not for Profit: Why Democracy Needs the Humanities</em> (2010).</cite>
