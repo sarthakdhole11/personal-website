@@ -29,35 +29,10 @@ body {
   overflow-y: auto;
 }
 
-#ambient-field {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 40vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.bubble {
-  position: absolute;
-  border-radius: 50%;
-  will-change: transform, filter;
-  mix-blend-mode: multiply;
-}
-
-@media (prefers-reduced-motion: reduce),
-       (max-width: 768px) {
-  #ambient-field { display: none; }
-}
-
 main {
   width: 100%;
   max-width: 720px;
   padding: 12vh 24px 80px;
-  position: relative;
-  z-index: 1;
 }
 
 h1 {
@@ -78,7 +53,6 @@ h1 {
   color: var(--text-muted);
   opacity: 0;
   pointer-events: none;
-  z-index: 2;
 }
 
 ol {
@@ -145,8 +119,6 @@ a:hover { opacity: 0.6; }
 
 <body>
 
-<div id="ambient-field"></div>
-
 <div class="intro-line" id="introLine">
   here is a peek into the music that makes up my day.
 </div>
@@ -168,87 +140,8 @@ a:hover { opacity: 0.6; }
 </main>
 
 <script>
-
 const fromHome = sessionStorage.getItem("fromHome");
 sessionStorage.removeItem("fromHome");
-
-
-const palette = [
-  [212, 36, 48],   // cochineal red
-  [245, 158, 11],  // marigold
-  [20, 184, 166],  // jade
-  [37, 99, 235],   // indigo blue
-  [14, 165, 233],  // turquoise
-  [168, 85, 247]   // bougainvillea
-];
-
-function rgba(c, a) {
-  return `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${a})`;
-}
-
-const field = document.getElementById("ambient-field");
-const bubbles = [];
-const COUNT = 9;
-
-function rand(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-if (field) {
-  for (let i = 0; i < COUNT; i++) {
-    const el = document.createElement("div");
-    el.className = "bubble";
-
-    const size = rand(120, 260);
-    const color = palette[Math.floor(rand(0, palette.length))];
-
-    el.style.width = el.style.height = size + "px";
-    el.style.background = `
-      radial-gradient(
-        circle at 30% 30%,
-        ${rgba(color, 0.28)},
-        ${rgba(color, 0.05)} 60%,
-        transparent 72%
-      )
-    `;
-    el.style.filter = "blur(0.4px)";
-
-    const bubble = {
-      el,
-      x: rand(-200, field.clientWidth + 200),
-      y: rand(-200, field.clientHeight + 200),
-      vx: rand(-0.03, 0.03),
-      vy: rand(-0.02, 0.02),
-      phase: rand(0, Math.PI * 2),
-      drift: rand(0.001, 0.003)
-    };
-
-    field.appendChild(el);
-    bubbles.push(bubble);
-  }
-
-  function animate() {
-    bubbles.forEach(b => {
-      b.phase += b.drift;
-      b.x += b.vx + Math.sin(b.phase) * 0.02;
-      b.y += b.vy + Math.cos(b.phase * 0.9) * 0.015;
-
-      if (b.x < -300) b.x = field.clientWidth + 300;
-      if (b.x > field.clientWidth + 300) b.x = -300;
-      if (b.y < -300) b.y = field.clientHeight + 300;
-      if (b.y > field.clientHeight + 300) b.y = -300;
-
-      const scale = 1 + Math.sin(b.phase) * 0.05;
-
-      b.el.style.transform =
-        `translate(${b.x}px, ${b.y}px) scale(${scale})`;
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-}
 
 const title = document.getElementById("title");
 const introLine = document.getElementById("introLine");
@@ -286,9 +179,9 @@ for (let i = records.length - 1; i > 0; i--) {
 
 records.forEach((r, i) => {
   const li = document.createElement("li");
-  li.className = "fade-in";
   li.style.transform = "translateY(12px)";
   li.style.animationDelay = `${0.08 * i}s`;
+  li.className = "fade-in";
 
   const search =
     "https://www.google.com/search?q=" +
@@ -306,7 +199,7 @@ records.forEach((r, i) => {
   list.appendChild(li);
 });
 
-function reveal() {
+function showFinal() {
   title.classList.add("fade-in");
   title.style.opacity = "1";
   footer.classList.add("fade-in");
@@ -314,11 +207,22 @@ function reveal() {
 
 if (fromHome) {
   introLine.style.opacity = "1";
-  setTimeout(() => introLine.style.opacity = "0", 1200);
-  setTimeout(reveal, 2200);
+
+  setTimeout(() => {
+    introLine.style.transition = "opacity 0.8s ease";
+    introLine.style.opacity = "0";
+  }, 1200);
+
+  setTimeout(() => {
+    title.style.transform = "translateY(-20px)";
+    title.style.opacity = "1";
+    title.style.transition = "transform 0.9s ease, opacity 0.9s ease";
+    title.style.transform = "translateY(0)";
+    showFinal();
+  }, 2200);
 } else {
   title.style.opacity = "1";
-  list.querySelectorAll("li").forEach(li => li.style.opacity = "1");
+  list.querySelectorAll("li").forEach(li => (li.style.opacity = "1"));
   footer.style.opacity = "1";
 }
 </script>
