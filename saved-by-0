@@ -1,132 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>On Freedomn</title>
-    <style>
-        @font-face {
-            font-family: 'Bodoni 72 Oldstyle';
-            src: url('fonts/Bodoni72Oldstyle.ttf');
-        }
-        @font-face {
-            font-family: 'Garamond';
-            src: url('fonts/Garamond.ttf'); 
-        }
-        body {
-            font-family: 'Garamond', serif;
-            margin: 40px;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        blockquote {
-            font-family: 'Bodoni 72 Oldstyle', serif;
-            font-size: 1.2em;
-            text-align: center;
-            margin: 20px 0;
-            padding: 10px;
-            border-left: 3px solid #333;
-            color: #4b0082;
-            line-height: 1.4;
-        }
-        blockquote cite {
-            display: block;
-            font-size: 0.9em;
-            color: #333;
-            margin-top: 5px;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            font-family: 'Bodoni 72 Oldstyle', serif;
-            font-size: 1em;
-            color: #333;
-            padding: 5px 15px;
-            border: 1px solid #333;
-            border-radius: 8px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        a:hover {
-            background-color: #333;
-            color: #f9f9f9;
-        }
-        footer {
-            font-family: 'Bodoni 72 Oldstyle', serif;
-            text-align: center;
-            margin-top: 50px;
-            color: #333;
-        }
-    </style>
-    <script>
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-        });
-        document.addEventListener('cut', function(e) {
-            e.preventDefault();
-        });
-        document.addEventListener('paste', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'u')) {
-                e.preventDefault();
-            }
-        });
-    </script>
-</head>
-<body>
-    <div class="centered-text">
-    <p><u><b>saved by zero (or why you should pick an aphorism)</b></u></p>
-    <p>The Fixx, Abai, Post-punk, Fisher and so on...</p>
-    <p>18-January-2026 * Almaty, Kazakhstan</p>
-    <p>This is not intended to be a philosophical paper (although the question concerning whether it is one is a philosophical one indeed).</p>
-    <p>This is merely an exapnded view into an idea which I've engaged with for about a year now through hours upon hours of conversations in all possible spheres of life.</p>
-</div>
-<blockquote>
-Maybe someday, Saved by Zero... I'll be more together; stretched by fewer thoughts that leave me chasing...
-        <cite>Saved by Zero, Reach the Beach , <em>Liquid Modernity</em> (2000), Cambridge: Polity Press, p. 20.</cite>
-    </blockquote>
+<meta charset="UTF-8" />
+<title>saved by zero — sarthak dhole</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
-    .centered-text {
-        text-align: center;
-    }
-    .centered-text p {
-        margin: 5px 0;
-    }
+:root {
+  --text-main: #111;
+  --text-muted: #666;
+  --line: #e5e5e5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--text-main);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+/* Layout */
+
+main {
+  width: 100%;
+  max-width: 720px;
+  padding: 10vh 24px 90px;
+}
+
+/* Header */
+
+h1 {
+  font-size: 34px;
+  font-weight: normal;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.meta {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 52px;
+}
+
+/* Article */
+
+article p {
+  font-size: 18px;
+  line-height: 1.75;
+  margin: 0 0 22px;
+}
+
+article em { font-style: italic; }
+
+blockquote {
+  margin: 44px 0;
+  padding-left: 18px;
+  border-left: 2px solid var(--line);
+  color: #333;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Audio */
+
+.audio-box {
+  margin: 48px 0 56px;
+}
+
+.audio-box p {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+audio {
+  width: 100%;
+}
+
+/* Links */
+
+a {
+  color: var(--text-main);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+a:hover { opacity: 0.6; }
+
+/* Footer */
+
+.footer {
+  margin-top: 80px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Subtle fade-in */
+
+.fade-in {
+  opacity: 0;
+  animation: fade 0.8s ease forwards;
+}
+
+@keyframes fade {
+  to { opacity: 1; }
+}
+
+/* Small screens */
+
+@media (max-width: 480px) {
+  main { padding-top: 7vh; }
+  h1 { font-size: 28px; }
+}
 </style>
-    <p>Zygmunt Bauman’s assertion that “freedom cannot be gained against society” seems, at first glance, Machiavellian in tone, as though it might favour those in power. However, Bauman is not offering this as advice to rulers, as Niccolò Machiavelli did in <em>The Prince</em>, but as a reflection on society and the self. He promises that submitting to societal norms is the only way to pursue liberation. To engage with Bauman’s argument fully, we must first understand his conception of liberation and society’s role in enabling it. Through this essay, I will explore the implications of Bauman’s claim, drawing on thinkers such as Jean-Jacques Rousseau, Immanuel Kant, and Alfred Adler. I will also defend Bauman’s claim from existentialist critiques such as those of Jean-Paul Sartre. I will show that Bauman’s vision of freedom within society provides a more sustainable model for human flourishing.</p>
+</head>
 
-    <p>Bauman’s claim might seem paradoxical at first, as the term “liberation” brings with it the connotations of breaking away from constraints. However, his argument fits into the greater context that humans are social beings whose identity, autonomy, and freedom are shaped and expressed within a collective context as that of society. In this sense, freedom is not escaping social norms but navigating within them. I agree with this view as without societal structures—laws, cultural norms, and institutions—individuals would lack the means to exercise their freedoms meaningfully. Consider a thought experiment where the legal system and cultural norms are void, thus resulting in a lack of guarantee to certain rights and unpredictability in social interactions. Would you, being an individual in such a world, be able to pursue your goals without any hindrance? You might be able to bring products of your thought into the real world, but I would argue that is not complete liberation precisely because without these societal institutions, you would be much closer to the state of nature.</p>
+<body>
 
-    <p>I find that Jean-Jacques Rousseau’s <em>Social Contract</em> forms a basis for Bauman’s claim. The state of nature, as Rousseau describes it, is a place where, despite absolute freedom, life is “solitary, poor, nasty, brutish and short.” Life in such a world is dominated by fear and insecurity. In this context, entering into the agreed-upon social contract involves a form of submission, giving up natural liberty for civil liberty. His key idea is that legitimate political authority must come from the “general will” of the people, meaning that the laws and norms governing society must be agreed upon by its members. Rousseau famously states that “Man is born free, and everywhere he is in chains,” yet these very chains, formed through the social contract, are the very conditions that allow for societal institutions to function and for individuals to exercise a more meaningful freedom.</p>
+<main class="fade-in">
 
-    <p>The arguments against the social contract basis of the thesis might talk of cases when the societal norms are unjust; does submission still lead to genuine freedom in these cases? I argue that the social contract must be agreed upon by the citizens as well as the governing body, and in any case, if the conditions on either side change, the contract must be redrawn. Consider the example of a demagogue seizing the popular vote and power in Athens by using deceptive rhetoric based on unsound arguments and changing the policies once in power in a way that does not align with the promises made prior. The Athenians should not show unscrupulousness in examining the ruling practices, promises, and arguments of the demagogue and after realising that the social contract they had been sold upon is not the one that is being implemented, they should be ready to take back the power and search for a leader fit in enforcing the contract as agreed upon by the citizens. Socrates’ saying, “An unexamined life is not worth living,” holds true here – submitting to society with a social contract that one does not agree with takes away one’s freedom.</p>
+  <!-- TITLE -->
+  <h1>saved by zero (or why you should pick an aphorism)</h1>
 
-    <p>Immanuel Kant in his book <em>Groundwork of the Metaphysics of Morals</em> offers a perspective that aligns with the thesis. According to Kant, meaningful freedom is not the ability to act on every whim but rather the capacity to act in accordance with moral laws that one gives to oneself. These laws must be grounded in universal rational principles, and as Kant argues, they are often embodied in societal norms. Here we can again find the crucial distinction that is lacking in Bauman’s claim: freedom does not come from mere submission to any societal norm but submission only to those that reflect rational moral laws. Kant warns that one should not submit to societal norms that are arbitrary or unjust; rather, they must be examined for their rational validity and similar to the social contract, if these societal norms fail to align with universal moral principles, they should not be followed blindly. Thus, societal norms must be rational and agreed upon and the followers must be scrupulous in examining themselves and the society in order to attain true freedom.</p>
+  <!-- META -->
+  <div class="meta">
+    the fixx, abai, post-punk, fisher &nbsp;·&nbsp; 18 january 2026 &nbsp;·&nbsp; almaty, kazakhstan
+  </div>
 
-    <p>Jean-Paul Sartre, however, presents a counterargument worth considering. In <em>Being and Nothingness</em>, Sartre argues that freedom requires rejecting societal roles and norms, which he sees as being forms of “bad faith.” Sartre’s existentialism argues true freedom comes from creating one’s values totally independent of societal expectations. I would counter Sartre by engaging with his strongest argument, the idea of radical freedom—free from societal constraints—appears compelling. Sartre might argue that societal norms can trap individuals into prescribed roles, preventing them from achieving true liberation. However, this vision of radical autonomy is neglectful of the relational nature of human existence. Without societal norms, individuals would lack the common shared language and values necessary to express their autonomy in a meaningful way. I argue that Sartre’s rejection of societal constraints risks leading us into a form of nihilism, where freedom becomes meaningless as there is no shared framework for action.</p>
+  <!-- AUDIO / SONG -->
+  <div class="audio-box">
+    <p>listening: “saved by zero” — the fixx</p>
 
-    <p>I would also like to discuss an alternative approach coming from Alfred Adler. Adler’s emphasis on what he calls “horizontal relationships,” which are based on mutual respect and cooperation, suggests that societal submission does not necessarily have to mean submission to oppressive power structures. For Adler, true liberation occurs when individuals engage in relationships of equality within society, contributing to a common good that they all believe in while maintaining their autonomy. In this context, adhering to societal norms—provided they are fair and just—allows individuals to attain both personal fulfilment and harmony as a group. Adler’s thought matches the thesis as it approaches freedom through the means of relationships of equality within society, contrasting with Sartre’s conception.</p>
+    <!-- If you host files locally, place them in /audio/ -->
+    <audio controls>
+      <source src="audio/saved-by-zero.mp3" type="audio/mpeg">
+      <source src="audio/saved-by-zero.ogg" type="audio/ogg">
+      your browser does not support audio playback.
+    </audio>
 
-    <p>In conclusion, Zygmunt Bauman’s claim that “freedom cannot be gained against society” presents a compelling argument for the essentiality of societal engagement in an individual’s pursuit of liberation. However, as both Rousseau and Kant suggest, one must not submit blindly to societal norms. True freedom involves critically examining the norms we follow, ensuring that they come from the general will of the people and align with rational principles and ethical values. Sartre’s existentialist critique points out the dangers of conformity; I argue that his rejection of societal norms risks neglecting the very conditions necessary for meaningful autonomy. I would argue that Bauman’s conception of liberation within society as supported by Adler is valid, but it must be coupled with a commitment on the part of the citizens to scrutinise and shape the norms that govern them. Only then can they achieve true liberation—one that respects both individual autonomy and collective well-being.</p>
-<p>Last Updated: 24 October, 2024 </p>
-<footer>
-    <p>Feedback would be much appreciated at: <a href="mailto:dholesarthak11@gmail.com">dholesarthak11@gmail.com</a></p>
-    <div class="email-and-admonymous">
-        <a href="mailto:dholesarthak11@gmail.com"><i class="fas fa-envelope"></i></a>
-        <a href="https://www.admonymous.co/sarthakd" target="_blank"><i class="fas fa-comment"></i></a>
-    </div>
-</footer>
-    <a href="index.html">Go Back to Home</a>
+    <p style="margin-top:10px;">
+      <a href="https://open.spotify.com/track/6YF8R8nYcKZ5i7kqz9yZbN" target="_blank">spotify</a>,
+      <a href="https://music.apple.com/us/song/saved-by-zero/1440911654" target="_blank">apple music</a>,
+      <a href="https://www.youtube.com/watch?v=JOiZP8FS5Ww" target="_blank">youtube</a>
+    </p>
+  </div>
 
-    <footer>
-        <p>&copy; 2024 Sarthak Dhole. All rights reserved.</p>
+  <!-- ARTICLE BODY -->
+  <article>
+
+    <p>
+      This is not intended to be a philosophical paper, although the question of whether it is one
+      is philosophical in itself. It is an expanded view into an idea I have been engaging with for
+      about a year now, across conversations in very different spheres of life.
+    </p>
+
+    <blockquote>
+      Maybe someday, saved by zero, I’ll be more together; stretched by fewer thoughts that leave me chasing…
+      <cite>
+        The Fixx, <em>Saved by Zero</em>; Bauman, <em>Liquid Modernity</em> (2000)
+      </cite>
+    </blockquote>
+
+    <p>
+      Zygmunt Bauman’s assertion that freedom cannot be gained against society seems, at first glance,
+      almost Machiavellian. However, Bauman is not offering advice to rulers but reflecting on the
+      structure of the self within modern social conditions. He is diagnosing, not prescribing.
+    </p>
+
+    <p>
+      Liberation, in Bauman’s sense, does not mean the absence of constraint. It means the ability to
+      act meaningfully within a world of shared expectations, institutions, and language. Outside of
+      that framework, autonomy becomes performative rather than productive.
+    </p>
+
+    <p>
+      Rousseau’s social contract offers a useful parallel. In exchanging natural liberty for civil
+      liberty, individuals accept constraint in order to gain stability, predictability, and mutual
+      recognition. Absolute freedom in the state of nature does not translate into practical agency.
+    </p>
+
+    <p>
+      Kant sharpens this distinction further. For him, freedom is not acting on impulse but acting in
+      accordance with laws one rationally endorses. Social norms can embody these laws, but only when
+      they withstand ethical scrutiny. Submission without examination is not freedom.
+    </p>
+
+    <p>
+      Sartre would object here. Roles, norms, expectations — all are forms of bad faith. Yet radical
+      autonomy without shared structures collapses into isolation. Choice requires context; language
+      requires community; meaning requires continuity.
+    </p>
+
+    <p>
+      Adler’s emphasis on horizontal relationships points toward a social freedom grounded in
+      cooperation rather than domination. One can belong without being absorbed, participate without
+      being erased.
+    </p>
+
+    <p>
+      Bauman, then, is not arguing for obedience. He is arguing for embeddedness. Freedom is not found
+      in flight from society, but in shaping it, contesting it, and negotiating one’s place within it.
+    </p>
+
+    <p>
+      In that sense, the aphorism matters. It is brief, repeatable, mobile. It survives in unstable
+      contexts. It does not explain everything, but it holds long enough to orient thought.
+    </p>
+
+    <p>
+      Maybe that is what being saved by zero means — not escaping the system, but resetting within it,
+      momentarily, before re-entering with fewer illusions of purity.
+    </p>
+
+    <p style="color: var(--text-muted); font-size: 14px; margin-top: 40px;">
+      last updated: 24 october 2024
+    </p>
+
+  </article>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>
+      <a href="index.html">back to home</a>
+    </p>
+
+    <p style="margin-top:12px;">
+      feedback: <a href="mailto:dholesarthak11@gmail.com">dholesarthak11@gmail.com</a>
+    </p>
+
+    <p style="margin-top:28px;">
+      © 2026 sarthak dhole. all rights reserved.
+    </p>
+  </div>
+
+</main>
+
+</body>
+</html>
