@@ -91,6 +91,7 @@ li {
   font-size: 16px;
   color: var(--text-muted);
   white-space: nowrap;
+  text-align: right;
 }
 
 a {
@@ -143,6 +144,8 @@ a:hover { opacity: 0.6; }
 </div>
 
 <main>
+  <h1 id="title">Thoughts on Art</h1>
+
   <ol id="art-list">
 
     <li class="fade-in">
@@ -150,12 +153,12 @@ a:hover { opacity: 0.6; }
       <div class="entry">
         <div class="entry-main">
           <strong>Fragment and Division</strong><br>
-          Kamrooz Aram, Nature Morte — 2 Feb 2026
+          Kamrooz Aram — 2 Feb 2026
           <a class="notes-link" href="nature-morte_02_26.pdf" target="_blank">notes</a>
         </div>
         <div class="entry-location">
-          <a href="https://www.google.com/maps/place/Mumbai,+Maharashtra,+India" target="_blank">
-            Mumbai, India
+          <a href="https://www.google.com/maps/place/Nature+Morte,+Mumbai" target="_blank">
+            Nature Morte<br>Mumbai, India
           </a>
         </div>
       </div>
@@ -171,7 +174,7 @@ a:hover { opacity: 0.6; }
         </div>
         <div class="entry-location">
           <a href="https://www.google.com/maps/place/Almaty+Museum+of+Arts" target="_blank">
-            Almaty, Kazakhstan
+            Almaty Museum of Arts<br>Almaty, Kazakhstan
           </a>
         </div>
       </div>
@@ -182,12 +185,12 @@ a:hover { opacity: 0.6; }
       <div class="entry">
         <div class="entry-main">
           <strong>Lone Runner’s Laboratory</strong><br>
-          Prabhakar Pachpute, Experimenter — 24 Jan 2026
+          Prabhakar Pachpute — 24 Jan 2026
           <a class="notes-link" href="experimenter_01_26.pdf" target="_blank">notes</a>
         </div>
         <div class="entry-location">
           <a href="https://www.google.com/maps/place/Experimenter,+Colaba,+Mumbai" target="_blank">
-            Mumbai, India
+            Experimenter<br>Mumbai, India
           </a>
         </div>
       </div>
@@ -196,9 +199,9 @@ a:hover { opacity: 0.6; }
   </ol>
 
   <p class="footer-note" id="footer">
-    click on <em>notes</em> to think through the works with me.  
-    click on the location to open the gallery on Google Maps and actually visit and think with me!  
-    i started this to incentivize myself to write legibly. 
+    click on <em>notes</em> to read my reflections from that visit.  
+    click on the gallery name to open its location on Google Maps.  
+    i started this to incentivize myself to write legibly.
   </p>
 
   <p class="copyright">
@@ -222,7 +225,6 @@ items.forEach((li, i) => {
 
 function showFinal() {
   title.classList.add("fade-in");
-  title.style.opacity = "1";
   footer.classList.add("fade-in");
 }
 
@@ -235,16 +237,12 @@ if (fromHome) {
   }, 1200);
 
   setTimeout(() => {
-    title.style.transform = "translateY(-20px)";
-    title.style.opacity = "1";
-    title.style.transition = "transform 0.9s ease, opacity 0.9s ease";
-    title.style.transform = "translateY(0)";
     showFinal();
   }, 2200);
 } else {
   title.style.opacity = "1";
-  items.forEach(li => (li.style.opacity = "1"));
   footer.style.opacity = "1";
+  items.forEach(li => (li.style.opacity = "1"));
 }
 </script>
 
