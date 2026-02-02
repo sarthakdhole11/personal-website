@@ -1,1 +1,208 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>My Thoughts on Art</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+:root {
+  --text-main: #111;
+  --text-muted: #777;
+  --line: #e5e5e5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--text-main);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+main {
+  width: 100%;
+  max-width: 720px;
+  padding: 12vh 24px 80px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: normal;
+  margin: 0 0 40px;
+  color: var(--text-muted);
+  opacity: 0;
+}
+
+.intro-line {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--text-muted);
+  opacity: 0;
+  pointer-events: none;
+}
+
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  font-size: 20px;
+  line-height: 1.6;
+  opacity: 0;
+}
+
+.num {
+  font-size: 14px;
+  color: var(--text-muted);
+  min-width: 32px;
+}
+
+a {
+  color: var(--text-main);
+  text-decoration: underline;
+}
+
+.footer-note {
+  margin-top: 56px;
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 560px;
+  opacity: 0;
+}
+
+.copyright {
+  margin-top: 64px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.fade-in {
+  animation: fadeUp 0.9s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="intro-line" id="introLine">
+  here are some thoughts on art i’ve recorded
+</div>
+
+<main>
+  <ol id="art-list">
+
+    <li class="fade-in">
+      <span class="num">1.</span>
+      <span>
+        <strong>Nature Morte — Fragment and Division</strong>  
+        (2 Feb 2026) — Kamrooz Aram at 
+        <a href="https://www.google.com/maps/place/Mumbai,+Maharashtra,+India" target="_blank">Mumbai, India</a>.  
+        Notes: <a href="nature-morte_02_26.pdf" target="_blank">nature-morte_02_26.pdf</a>
+      </span>
+    </li>
+
+    <li class="fade-in">
+      <span class="num">2.</span>
+      <span>
+        <strong>I Understand Everything</strong> — Almagul Menlibayeva retrospective  
+        (14 Jan 2026) at 
+        <a href="https://www.google.com/maps/place/Almaty+Museum+of+Arts" target="_blank">Almaty Museum of Arts, Almaty, Kazakhstan</a>.  
+        Notes: <a href="almaty_01_26.pdf" target="_blank">almaty_01_26.pdf</a>
+      </span>
+    </li>
+
+    <li class="fade-in">
+      <span class="num">3.</span>
+      <span>
+        <strong>Lone Runner’s Laboratory</strong> — Prabhakar Pachpute solo  
+        (24 Jan 2026) at 
+        <a href="https://www.google.com/maps/place/Experimenter,+Colaba,+Mumbai" target="_blank">Experimenter – Colaba, Mumbai, India</a>.  
+        Notes: <a href="experimenter_01_26.pdf" target="_blank">experimenter_01_26.pdf</a>
+      </span>
+    </li>
+
+  </ol>
+
+  <p class="footer-note" id="footer">
+    Click on the location to open its Google Maps page and click on the notes links to access my written reflections from that visit.  
+    I started this to incentivize myself to write legibly and thoughtfully about art.
+  </p>
+
+  <p class="copyright">
+    © 2026 Sarthak Dhole. All rights reserved.
+  </p>
+</main>
+
+<script>
+const fromHome = sessionStorage.getItem("fromHome");
+sessionStorage.removeItem("fromHome");
+
+const title = document.getElementById("title");
+const introLine = document.getElementById("introLine");
+const footer = document.getElementById("footer");
+
+const items = document.querySelectorAll("li");
+
+items.forEach((li, i) => {
+  li.style.transform = "translateY(12px)";
+  li.style.animationDelay = `${0.06 * i}s`;
+});
+
+function showFinal() {
+  title.classList.add("fade-in");
+  title.style.opacity = "1";
+  footer.classList.add("fade-in");
+}
+
+if (fromHome) {
+  introLine.style.opacity = "1";
+
+  setTimeout(() => {
+    introLine.style.transition = "opacity 0.8s ease";
+    introLine.style.opacity = "0";
+  }, 1200);
+
+  setTimeout(() => {
+    title.style.transform = "translateY(-20px)";
+    title.style.opacity = "1";
+    title.style.transition = "transform 0.9s ease, opacity 0.9s ease";
+    title.style.transform = "translateY(0)";
+    showFinal();
+  }, 2200);
+} else {
+  title.style.opacity = "1";
+  items.forEach(li => (li.style.opacity = "1"));
+  footer.style.opacity = "1";
+}
+</script>
+
+</body>
+</html>
