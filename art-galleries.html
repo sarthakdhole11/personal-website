@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>My Thoughts on Art</title>
+<title>Art — Sarthak Dhole</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
@@ -65,7 +64,7 @@ ol {
 li {
   display: flex;
   gap: 16px;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
   font-size: 20px;
   line-height: 1.6;
   opacity: 0;
@@ -74,12 +73,39 @@ li {
 .num {
   font-size: 14px;
   color: var(--text-muted);
-  min-width: 32px;
+  min-width: 28px;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  width: 100%;
+}
+
+.entry-main {
+  max-width: 520px;
+}
+
+.entry-location {
+  font-size: 16px;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
 a {
   color: var(--text-main);
-  text-decoration: underline;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+a:hover { opacity: 0.6; }
+
+.notes-link {
+  margin-left: 6px;
+  font-size: 16px;
+  color: var(--text-muted);
 }
 
 .footer-note {
@@ -113,47 +139,68 @@ a {
 <body>
 
 <div class="intro-line" id="introLine">
-  here are some thoughts on art i’ve recorded
+  here are some thoughts on art i’ve recorded.
 </div>
 
 <main>
+  <h1 id="title">art notes</h1>
+
   <ol id="art-list">
 
     <li class="fade-in">
       <span class="num">1.</span>
-      <span>
-        <strong>Nature Morte — Fragment and Division</strong>  
-        (2 Feb 2026) — Kamrooz Aram at 
-        <a href="https://www.google.com/maps/place/Mumbai,+Maharashtra,+India" target="_blank">Mumbai, India</a>.  
-        Notes: <a href="nature-morte_02_26.pdf" target="_blank">nature-morte_02_26.pdf</a>
-      </span>
+      <div class="entry">
+        <div class="entry-main">
+          <strong>Fragment and Division</strong><br>
+          Kamrooz Aram, Nature Morte — 2 Feb 2026
+          <a class="notes-link" href="nature-morte_02_26.pdf" target="_blank">notes</a>
+        </div>
+        <div class="entry-location">
+          <a href="https://www.google.com/maps/place/Mumbai,+Maharashtra,+India" target="_blank">
+            Mumbai, India
+          </a>
+        </div>
+      </div>
     </li>
 
     <li class="fade-in">
       <span class="num">2.</span>
-      <span>
-        <strong>I Understand Everything</strong> — Almagul Menlibayeva retrospective  
-        (14 Jan 2026) at 
-        <a href="https://www.google.com/maps/place/Almaty+Museum+of+Arts" target="_blank">Almaty Museum of Arts, Almaty, Kazakhstan</a>.  
-        Notes: <a href="almaty_01_26.pdf" target="_blank">almaty_01_26.pdf</a>
-      </span>
+      <div class="entry">
+        <div class="entry-main">
+          <strong>I Understand Everything</strong><br>
+          Almagul Menlibayeva — 14 Jan 2026
+          <a class="notes-link" href="almaty_01_26.pdf" target="_blank">notes</a>
+        </div>
+        <div class="entry-location">
+          <a href="https://www.google.com/maps/place/Almaty+Museum+of+Arts" target="_blank">
+            Almaty, Kazakhstan
+          </a>
+        </div>
+      </div>
     </li>
 
     <li class="fade-in">
       <span class="num">3.</span>
-      <span>
-        <strong>Lone Runner’s Laboratory</strong> — Prabhakar Pachpute solo  
-        (24 Jan 2026) at 
-        <a href="https://www.google.com/maps/place/Experimenter,+Colaba,+Mumbai" target="_blank">Experimenter – Colaba, Mumbai, India</a>.  
-        Notes: <a href="experimenter_01_26.pdf" target="_blank">experimenter_01_26.pdf</a>
-      </span>
+      <div class="entry">
+        <div class="entry-main">
+          <strong>Lone Runner’s Laboratory</strong><br>
+          Prabhakar Pachpute, Experimenter — 24 Jan 2026
+          <a class="notes-link" href="experimenter_01_26.pdf" target="_blank">notes</a>
+        </div>
+        <div class="entry-location">
+          <a href="https://www.google.com/maps/place/Experimenter,+Colaba,+Mumbai" target="_blank">
+            Mumbai, India
+          </a>
+        </div>
+      </div>
     </li>
 
   </ol>
 
   <p class="footer-note" id="footer">
-    Click on the location to open its Google Maps page and click on the notes links to access my written reflections from that visit.  
-    I started this to incentivize myself to write legibly and thoughtfully about art.
+    Click on <em>notes</em> to read my reflections from that visit.  
+    Click on the location to open the gallery on Google Maps.  
+    I started this to incentivize myself to write clearly and consistently.
   </p>
 
   <p class="copyright">
@@ -168,12 +215,11 @@ sessionStorage.removeItem("fromHome");
 const title = document.getElementById("title");
 const introLine = document.getElementById("introLine");
 const footer = document.getElementById("footer");
-
 const items = document.querySelectorAll("li");
 
 items.forEach((li, i) => {
   li.style.transform = "translateY(12px)";
-  li.style.animationDelay = `${0.06 * i}s`;
+  li.style.animationDelay = `${0.08 * i}s`;
 });
 
 function showFinal() {
