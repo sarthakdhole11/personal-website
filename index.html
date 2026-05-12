@@ -1,391 +1,367 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paintings</title>
+<meta charset="UTF-8" />
+<title>Sarthak Dhole</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    :root {
-      --bg: #f7f2ea;
-      --ink: #171411;
-      --muted: #6f665c;
-      --line: rgba(23, 20, 17, 0.16);
-      --card: #fffaf2;
-      --accent: #8b3f2f;
-    }
+<style>
+:root {
+--bg: #ffffff;
+--text-main: #111;
+--text-muted: #666;
+--line: #e5e5e5;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+[data-theme="dark"] {
+--bg: #0e0f11;
+--text-main: #e9e9ea;
+--text-muted: #9a9a9d;
+--line: #2a2b2f;
+}
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(139, 63, 47, 0.12), transparent 34rem),
-        linear-gradient(180deg, #fbf7ef 0%, var(--bg) 100%);
-      color: var(--ink);
-      font-family: Georgia, "Times New Roman", serif;
-    }
+* { box-sizing: border-box; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+html, body {
+margin: 0;
+padding: 0;
+background: var(--bg);
+color: var(--text-main);
+font-family: Georgia, "Times New Roman", Times, serif;
+overflow: hidden;
+transition: background 0.8s ease, color 0.8s ease;
+}
 
-    .page {
-      width: min(1180px, calc(100% - 36px));
-      margin: 0 auto;
-      padding: 34px 0 70px;
-    }
+body {
+min-height: 100vh;
+display: flex;
+justify-content: center;
+}
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--line);
-    }
+body.theme-shift {
+opacity: 0.96;
+transition: opacity 0.6s ease;
+}
 
-    .brand {
-      font-size: 15px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+main {
+width: 100%;
+max-width: 720px;
+padding: 12vh 24px 64px;
+position: relative;
+}
 
-    nav {
-      display: flex;
-      gap: 20px;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+h1 {
+font-size: 34px;
+font-weight: normal;
+margin: 0 0 32px;
+line-height: 1.3;
+}
 
-    nav a {
-      position: relative;
-    }
+section { margin-top: 56px; }
 
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 1px;
-      background: var(--ink);
-      transition: width 180ms ease;
-    }
+section.compact { margin-top: 28px; }
 
-    nav a:hover::after,
-    nav a.active::after {
-      width: 100%;
-    }
+h2 {
+font-size: 18px;
+font-weight: normal;
+margin-bottom: 16px;
+color: var(--text-muted);
+transition: color 0.8s ease;
+}
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 38px;
-      align-items: end;
-      padding: 58px 0 42px;
-    }
+p {
+font-size: 18px;
+line-height: 1.7;
+margin: 0;
+transition: color 0.8s ease;
+}
 
-    h1 {
-      max-width: 760px;
-      font-size: clamp(54px, 10vw, 138px);
-      line-height: 0.88;
-      letter-spacing: -0.075em;
-      font-weight: 400;
-    }
+a {
+color: var(--text-main);
+text-decoration: none;
+border-bottom: 1px solid var(--line);
+padding-bottom: 2px;
+transition: opacity 0.3s ease, border-color 0.8s ease, color 0.8s ease;
+}
 
-    .hero-copy {
-      max-width: 430px;
-      justify-self: end;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.65;
-    }
+a:hover { opacity: 0.6; }
 
-    .hero-copy span {
-      color: var(--accent);
-      font-style: italic;
-    }
+#intro-layer {
+position: fixed;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+pointer-events: none;
+z-index: 10;
+}
 
-    .gallery-shell {
-      padding-top: 8px;
-    }
+#intro-text {
+font-size: 34px;
+line-height: 1.3;
+white-space: nowrap;
+transform-origin: left top;
+will-change: transform;
+}
 
-    .gallery-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 0;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 24px;
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+#content {
+transform: translateY(120vh);
+will-change: transform;
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-auto-flow: dense;
-      gap: 18px;
-    }
+.hidden { visibility: hidden; }
 
-    .painting {
-      position: relative;
-      overflow: hidden;
-      min-height: 260px;
-      background: var(--card);
-      border: 1px solid rgba(23, 20, 17, 0.12);
-      box-shadow: 0 20px 50px rgba(23, 20, 17, 0.08);
-      isolation: isolate;
-    }
+.copyright {
+margin-top: 48px;
+font-size: 14px;
+color: var(--text-muted);
+opacity: 0;
+transition: opacity 0.6s ease, color 0.8s ease;
+}
 
-    .painting::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.44));
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 260ms ease;
-    }
+#theme-toggle {
+position: fixed;
+bottom: 24px;
+right: 24px;
+width: 44px;
+height: 44px;
+border-radius: 50%;
+border: 1px solid var(--line);
+background: var(--bg);
+cursor: pointer;
+z-index: 30;
+display: grid;
+place-items: center;
+transition: border 0.8s ease, background 0.8s ease, opacity 0.3s ease;
+}
 
-    .painting img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: saturate(0.92) contrast(1.04);
-      transform: scale(1.015);
-      transition: transform 420ms ease, filter 420ms ease;
-    }
+#theme-toggle:hover { opacity: 0.7; }
 
-    .painting:hover img {
-      transform: scale(1.055);
-      filter: saturate(1.04) contrast(1.08);
-    }
+#theme-toggle .dot {
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: var(--text-main);
+transition: transform 0.45s ease, background 0.8s ease;
+}
 
-    .painting:hover::before {
-      opacity: 1;
-    }
+[data-theme="dark"] #theme-toggle .dot {
+transform: scale(1.6);
+}
 
-    .caption {
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 14px;
-      z-index: 2;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      color: #fffaf2;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 240ms ease, transform 240ms ease;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-    }
+#theme-ripple {
+position: fixed;
+inset: 0;
+pointer-events: none;
+clip-path: circle(0% at 100% 100%);
+z-index: 20;
+}
 
-    .painting:hover .caption {
-      opacity: 1;
-      transform: translateY(0);
-    }
+#theme-ripple.active {
+animation: ripple 0.8s cubic-bezier(0.22,0.61,0.36,1) forwards;
+}
 
-    .large {
-      grid-column: span 7;
-      grid-row: span 2;
-      min-height: 560px;
-    }
+@keyframes ripple {
+to { clip-path: circle(150% at 100% 100%); }
+}
 
-    .medium {
-      grid-column: span 5;
-      min-height: 360px;
-    }
+@media (max-height: 700px) {
+main { padding-top: 8vh; }
+section { margin-top: 40px; }
+}
 
-    .small {
-      grid-column: span 4;
-      min-height: 300px;
-    }
-
-    .wide {
-      grid-column: span 8;
-      min-height: 330px;
-    }
-
-    .tall {
-      grid-column: span 4;
-      grid-row: span 2;
-      min-height: 540px;
-    }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding-top: 34px;
-      margin-top: 42px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    @media (max-width: 860px) {
-      header,
-      footer,
-      .hero,
-      .gallery-meta {
-        display: block;
-      }
-
-      nav {
-        margin-top: 18px;
-        flex-wrap: wrap;
-      }
-
-      .hero {
-        padding: 42px 0 32px;
-      }
-
-      .hero-copy {
-        margin-top: 22px;
-        justify-self: start;
-      }
-
-      .gallery {
-        grid-template-columns: repeat(6, 1fr);
-      }
-
-      .large,
-      .medium,
-      .small,
-      .wide,
-      .tall {
-        grid-column: span 6;
-        min-height: 390px;
-      }
-
-      .gallery-meta p + p {
-        margin-top: 8px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .page {
-        width: min(100% - 24px, 1180px);
-        padding-top: 22px;
-      }
-
-      h1 {
-        font-size: clamp(48px, 20vw, 86px);
-      }
-
-      .painting,
-      .large,
-      .medium,
-      .small,
-      .wide,
-      .tall {
-        min-height: 310px;
-      }
-    }
-  </style>
+@media (max-height: 620px) {
+main { padding-top: 6vh; }
+section { margin-top: 32px; }
+}
+</style>
 </head>
+
 <body>
-  <main class="page">
-    <header>
-      <a class="brand" href="index.html">Sarthak Dhole</a>
-      <nav aria-label="Primary navigation">
-        <a href="index.html">Index</a>
-        <a class="active" href="paintings.html">Paintings</a>
-      </nav>
-    </header>
 
-    <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title">Paintings</h1>
-      <p class="hero-copy">
-        A rotating wall of studies, fragments, moods, and finished pieces. The order is intentionally unstable: <span>refresh to reshuffle the room.</span>
-      </p>
-    </section>
+<div id="intro-layer">
+<div id="intro-text"></div>
+</div>
 
-    <section class="gallery-shell" aria-label="Painting gallery">
-      <div class="gallery-meta">
-        <p>Selected works</p>
-        <p>Images shuffle on refresh</p>
-      </div>
+<main>
+<h1 id="final-heading" class="hidden">
+hi. i’m sarthak dhole.
+</h1>
 
-      <div class="gallery" id="gallery"></div>
-    </section>
+<div id="content">
 
-    <footer>
-      <p>Paintings / mixed media / studies</p>
-      <p>© <span id="year"></span> Sarthak Dhole</p>
-    </footer>
-  </main>
+<section>
+<h2>find pieces of me at</h2>
+<p>
+<a href="https://www.philosium.com" target="_blank">philosium</a>, 
+<a href="https://www.linghacks.tech" target="_blank">linghacks</a>,
+<a href="https://www.getheadspace.in" target="_blank">HEADSPACE</a>
+</p>
+</section>
 
-  <script>
-    const paintings = [
-      { src: "Tree Spirit.jpeg", title: "Tree Spirit" },
-      { src: "The Heads.jpeg", title: "The Heads" },
-      { src: "Lennon in the Park with Handkerchief.jpeg", title: "Lennon in the Park with Handkerchief" },
-      { src: "Incohesion, social.jpeg", title: "Incohesion, social" },
-      { src: "ETA to the Beach.jpeg", title: "ETA to the Beach" },
-      { src: "Cameluccino.jpeg", title: "Cameluccino" },
-      { src: "A Week over the Bamboo.jpeg", title: "A Week over the Bamboo" },
-      { src: "A Tribute to Foley.jpeg", title: "A Tribute to Foley" }
-    ];
+<section>
+<h2>things i love</h2>
+<p>
+<a href="https://www.sarthakdhole.com/records">records</a>, 
+<a href="https://www.sarthakdhole.com/books">books</a>,
+<a href="https://www.sarthakdhole.com/questions">questions</a>,
+<a href="https://www.sarthakdhole.com/art-galleries">thinking about art</a>
+</p>
+</section>
 
-    const sizeClasses = ["large", "medium", "small", "tall", "wide", "small", "medium", "small", "tall", "wide", "small", "medium"];
+<section class="compact">
+<p>
+<a href="https://airtable.com/appGlaeYnAMmrjB6E/pagmmZ4p5NAZmrg3i/form" target="_blank">
+join my hermeneutics reading group</a>
+</p>
+</section>
+<section class="compact">
 
-    function shuffle(array) {
-      const copy = [...array];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
+<section class="compact">
+<p>
+<a href="https://airtable.com/app7WHJKHnmlgnN5t/pagXx2oyaJSPQuCop/form">
+          submit to the philosium journal & come say hi in budapest!    </a>
+          send us cool philosophical stuff & come say hi in budapest!    </a>
+</p>
+</section>
+<section class="compact">
 
-    function renderGallery() {
-      const gallery = document.getElementById("gallery");
-      const shuffledPaintings = shuffle(paintings);
-      const shuffledSizes = shuffle(sizeClasses);
 
-      gallery.innerHTML = shuffledPaintings
-        .map((painting, index) => {
-          const sizeClass = shuffledSizes[index % shuffledSizes.length];
-          return `
-            <article class="painting ${sizeClass}">
-              <img src="${painting.src}" alt="${painting.title}" loading="lazy" />
-              <div class="caption">
-                <span>${painting.title}</span>
-                <span>${painting.src}</span>
-              </div>
-            </article>
-          `;
-        })
-        .join("");
-    }
+<section class="compact">
+<p>
+<a href="https://airtable.com/appNyZbpKaWuoxkMn/pagUsv66A7xqs6eDr/form" target="_blank">
+send me a recipe
+</a>
+</p>
+</section>
+<section class="compact">
+<p>
+<a href="https://www.sarthakdhole.com/ogre-spotting.html" target="_blank">
+come along on a sidequest
+</a>
+</p>
+</section>
+<section class="compact">
+<p>
+<a href="https://drive.google.com/file/d/1Eru8Q2RKFVtEUs4o0QpxSXVIBDdZPN_n/view?usp=sharing" target="_blank">
+request access to my resume
+</a>
+</p>
+</section>
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-    renderGallery();
-  </script>
+<section class="compact">
+<p>
+<a href="mailto:dholesarthak11@gmail.com">email me</a>
+</p>
+<p class="copyright" id="copyright">
+© 2026 Sarthak Dhole. All rights reserved.
+</p>
+</section>
+
+</div>
+</main>
+
+<button id="theme-toggle" aria-label="Toggle theme">
+<span class="dot"></span>
+</button>
+
+<div id="theme-ripple"></div>
+
+<script>
+function typeText(el, text, done) {
+let t = 0;
+[...text].forEach((ch, i) => {
+const span = document.createElement("span");
+span.innerHTML = ch === " " ? "&nbsp;" : ch;
+span.style.opacity = "0";
+span.style.display = "inline-block";
+span.style.transform = "translateY(6px)";
+el.appendChild(span);
+
+let delay = 55;
+if (i === 1) delay = 140;
+if (ch === ".") delay = 80;
+
+t += delay;
+setTimeout(() => {
+span.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+span.style.opacity = "1";
+span.style.transform = "translateY(0)";
+}, t);
+});
+setTimeout(done, t + 200);
+}
+
+window.addEventListener("load", () => {
+const introText = document.getElementById("intro-text");
+const introLayer = document.getElementById("intro-layer");
+const finalHeading = document.getElementById("final-heading");
+const content = document.getElementById("content");
+const copyright = document.getElementById("copyright");
+
+typeText(introText, "hi. i’m sarthak dhole.", () => {
+introText.style.transition = "transform 0.18s ease-out";
+introText.style.transform = "translate(-2px, -2px)";
+
+requestAnimationFrame(() => {
+requestAnimationFrame(() => {
+const start = introText.getBoundingClientRect();
+const end = finalHeading.getBoundingClientRect();
+
+introText.style.transition =
+"transform 0.62s cubic-bezier(0.18,0.7,0.3,1)";
+introText.style.transform =
+`translate(${end.left - start.left}px, ${end.top - start.top}px)`;
+
+setTimeout(() => {
+introLayer.remove();
+finalHeading.classList.remove("hidden");
+
+content.style.transition =
+"transform 0.9s cubic-bezier(0.22,0.61,0.36,1)";
+content.style.transform = "translateY(0)";
+
+setTimeout(() => {
+copyright.style.opacity = "1";
+}, 300);
+}, 520);
+});
+});
+});
+});
+
+const toggle = document.getElementById("theme-toggle");
+const ripple = document.getElementById("theme-ripple");
+const root = document.documentElement;
+
+const saved = localStorage.getItem("theme");
+if (saved) root.setAttribute("data-theme", saved);
+
+toggle.addEventListener("click", () => {
+ripple.classList.remove("active");
+void ripple.offsetWidth;
+
+const current = root.getAttribute("data-theme");
+const next = current === "dark" ? "light" : "dark";
+
+const tempBg = next === "dark" ? "#0e0f11" : "#ffffff";
+ripple.style.background = tempBg;
+
+document.body.classList.add("theme-shift");
+ripple.classList.add("active");
+
+setTimeout(() => {
+root.setAttribute("data-theme", next);
+}, 160);
+
+setTimeout(() => {
+ripple.classList.remove("active");
+document.body.classList.remove("theme-shift");
+}, 850);
+
+localStorage.setItem("theme", next);
+});
+</script>
+
 </body>
 </html>
