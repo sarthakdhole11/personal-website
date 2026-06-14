@@ -60,6 +60,8 @@ font-family: Georgia, "Times New Roman", Times, serif;
 
 overflow-x: hidden;
 
+overflow-y: auto;
+
 transition: background 0.8s ease, color 0.8s ease;
 
 }
@@ -88,7 +90,7 @@ width: 100%;
 
 max-width: 720px;
 
-padding: 12vh 24px 64px;
+padding: 12vh 24px 96px;
 
 position: relative;
 
@@ -224,6 +226,8 @@ pointer-events: none;
 
 z-index: 10;
 
+padding: 0 24px;
+
 }
 
 #intro-text {
@@ -339,6 +343,114 @@ animation: ripple 0.8s cubic-bezier(0.22,0.61,0.36,1) forwards;
 @keyframes ripple {
 
 to { clip-path: circle(150% at 100% 100%); }
+
+}
+
+@media (max-width: 640px) {
+
+main {
+
+max-width: 100%;
+
+padding: 10vh 22px 112px;
+
+}
+
+h1,
+#intro-text {
+
+font-size: clamp(29px, 8.8vw, 34px);
+
+line-height: 1.25;
+
+}
+
+#intro-text {
+
+white-space: normal;
+
+max-width: calc(100vw - 44px);
+
+}
+
+#subheading {
+
+font-size: 17px;
+
+line-height: 1.65;
+
+}
+
+#subheading.visible {
+
+max-height: 520px;
+
+}
+
+section {
+
+margin-top: 44px;
+
+}
+
+section.compact {
+
+margin-top: 24px;
+
+}
+
+p {
+
+font-size: 17px;
+
+line-height: 1.65;
+
+}
+
+h2 {
+
+font-size: 17px;
+
+}
+
+#theme-toggle {
+
+bottom: 18px;
+
+right: 18px;
+
+width: 40px;
+
+height: 40px;
+
+}
+
+}
+
+@media (max-width: 380px) {
+
+main {
+
+padding-left: 18px;
+
+padding-right: 18px;
+
+}
+
+h1,
+#intro-text {
+
+font-size: 28px;
+
+}
+
+#subheading,
+p,
+h2 {
+
+font-size: 16px;
+
+}
 
 }
 
